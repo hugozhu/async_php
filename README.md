@@ -4,9 +4,12 @@ Test performance benefit by moving blocking I/O calls out of PHP.
 
 DEPENDENCY
 ====
-ngx_lua module - http://openresty.org latest stable release	
+ngx_lua module - http://openresty.org latest stable release
+	
 php_fpm        - http://php.net latest stable release
+
 php_curl       - built-in
+
 php_apc		   - pecl install apc
 
 
@@ -23,6 +26,7 @@ DUMMY BACKEND
 TEST
 ====
 **启动 nginx：**   bin/restart_nginx.sh
+
 **启动 php_fpm: ** /usr/local/sbin/php_fpm
 	
 RESULT

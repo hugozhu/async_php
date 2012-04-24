@@ -1,18 +1,20 @@
 async_php
 ====
-test performance changes with moving blocking I/O calls out of PHP.
+Test performance benefit by moving blocking I/O calls out of PHP.
 
 DEPENDENCY
 ====
-ngx_lua module - http://openresty.org	
-php_fpm        - http://php.net 
-php_curl       -
-php_apc
+ngx_lua module - http://openresty.org latest stable release	
+php_fpm        - http://php.net latest stable release
+php_curl       - built-in
+php_apc		   - pecl install apc
 
 
 DUMMY BACKEND
 ====
-	30ms latency
+	1ms latency: http://hsf1.test.cnz.alimama.com/1ms.php
+	10ms latency: http://hsf1.test.cnz.alimama.com/10ms.php
+	30ms latency: http://hsf1.test.cnz.alimama.com/30ms.php
 	<?php
 	     usleep(1000 * 30);
 	     for ($i=0;$i<1000;$i++)
@@ -23,7 +25,18 @@ TEST
 **启动 nginx：**   bin/restart_nginx.sh
 **启动 php_fpm: ** /usr/local/sbin/php_fpm
 	
-**backend with 10ms latency**
+RESULT
+====	
+**backend with 1ms latency**	
+	QPS: PHP with curl - 800, async PHP - 900   
+
+**backend with 10ms latency**	
+	QPS: PHP with curl - 300, async PHP - 500  
+
+**backend with 30ms latency**	
+	QPS: PHP with curl - 150, async PHP - 300   
+		
+**backend with 10ms latency in detail**
 	
 	ab -n 1000 -c 100 http://kmaster2.sds.cnz.alimama.com/curl.php
 	
@@ -64,7 +77,8 @@ TEST
 	  99%    422
 	 100%    450 (longest request)	
 	
-ab -n 1000 -c 100 http://kmaster2.sds.cnz.alimama.com/lua
+	ab -n 1000 -c 100 http://kmaster2.sds.cnz.alimama.com/lua
+	 
 	Server Software:        ngx_openresty
 	Server Hostname:        kmaster2.sds.cnz.alimama.com
 	Server Port:            80
@@ -101,5 +115,3 @@ ab -n 1000 -c 100 http://kmaster2.sds.cnz.alimama.com/lua
 	  98%    219
 	  99%    224
 	 100%    241 (longest request)
-	
-	

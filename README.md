@@ -25,9 +25,9 @@ DUMMY BACKEND
 	
 TEST
 ====
-**启动 nginx：**   bin/restart_nginx.sh
+启动 nginx：   bin/restart_nginx.sh
 
-**启动 php_fpm: ** /usr/local/sbin/php_fpm
+启动 php_fpm:  /usr/local/sbin/php_fpm
 	
 RESULT
 ====	

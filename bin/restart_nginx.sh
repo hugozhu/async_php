@@ -1,6 +1,6 @@
 #!/bin/sh
 
-ulimit  -n 65536
+#ulimit  -n 65536
 pwd=`pwd`
 alias nginx=/usr/local/openresty/nginx/sbin/nginx
 
